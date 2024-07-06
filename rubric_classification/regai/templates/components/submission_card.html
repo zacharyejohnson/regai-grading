@@ -1,0 +1,31 @@
+<div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 submission-card" data-submission-id="{{ submission.id }}" x-data="{ showFeedback: false }">
+    <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">Submission {{ forloop.counter }}</h3>
+        <span class="text-sm text-gray-500 dark:text-gray-400">{{ submission.submitted_at|date:"F j, Y, g:i a" }}</span>
+    </div>
+    <p class="mb-2 text-gray-600 dark:text-gray-400">File: <a href="{{ submission.file.url }}" class="text-blue-600 dark:text-blue-400 hover:underline" target="_blank">Download</a></p>
+    <div class="grade-section {% if submission.grade %}graded{% endif %} mt-4">
+        {% if submission.grade %}
+            <p class="mb-2 text-gray-700 dark:text-gray-300">Grade: <span class="font-semibold text-green-600 dark:text-green-400">{{ submission.grade }}</span></p>
+            <button @click="showFeedback = !showFeedback" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 focus:outline-none transition duration-150 ease-in-out flex items-center">
+                <span x-text="showFeedback ? 'Hide Feedback' : 'Show Feedback'"></span>
+                <svg class="w-4 h-4 ml-2 transform transition-transform duration-200" :class="{ 'rotate-180': showFeedback }" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </button>
+            <div x-show="showFeedback" x-collapse class="mt-4 bg-gray-50 dark:bg-gray-700 p-4 rounded-md">
+                <h4 class="font-semibold mb-2 text-gray-800 dark:text-gray-200">Feedback:</h4>
+                <p class="text-gray-600 dark:text-gray-400">{{ submission.feedback.overall_score_justification }}</p>
+                <h5 class="font-semibold mt-4 mb-2 text-gray-800 dark:text-gray-200">Category Scores:</h5>
+                {% for category_score in submission.feedback.category_scores %}
+                    <div class="mb-2">
+                        <p><strong class="text-gray-700 dark:text-gray-300">{{ category_score.category }}:</strong> <span class="text-gray-600 dark:text-gray-400">{{ category_score.justification }}</span></p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <button class="grade-submission-btn bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition duration-300 flex items-center" data-submission-id="{{ submission.id }}">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                Grade Submission
+            </button>
+        {% endif %}
+    </div>
+</div>

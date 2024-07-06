@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}REGAI - {{ assignment.title }}{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto">
+    <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">{{ assignment.title }}</h1>
+
+    <div class="bg-white dark:bg-gray-800 shadow overflow-hidden sm:rounded-lg mb-6">
+        <div class="px-4 py-5 sm:px-6">
+            <h2 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100">Assignment Details</h2>
+        </div>
+        <div class="border-t border-gray-200 dark:border-gray-700 px-4 py-5 sm:px-6">
+            <p class="text-gray-700 dark:text-gray-300">{{ assignment.description }}</p>
+            {% if assignment.description_file %}
+                <div class="mt-4">
+                    <a href="{{ assignment.description_file.url }}" class="text-blue-600 hover:underline" target="_blank">Download Description File</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    {% include 'components/rubric_viewer.html' with assignment=assignment %}
+
+    <div class="bg-white dark:bg-gray-800 shadow overflow-hidden sm:rounded-lg mb-6">
+        <div class="px-4 py-5 sm:px-6">
+            <h2 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100">Upload Submissions</h2>
+        </div>
+        <div class="border-t border-gray-200 dark:border-gray-700 px-4 py-5 sm:px-6">
+            <form action="{% url 'assignment-upload-submissions' assignment.id %}" method="post" enctype="multipart/form-data" id="uploadSubmissionForm">
+                {% csrf_token %}
+                <div class="mb-4">
+                    <label for="files" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Select Files</label>
+                    <input type="file" name="files" id="files" multiple accept=".txt,.pdf,.docx" required class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-600 rounded-md">
+                </div>
+                <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out">
+                    Upload Submissions
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <h2 class="text-2xl font-semibold mb-4 text-gray-900 dark:text-gray-100">Submissions</h2>
+    <div id="submissionsContainer" class="space-y-4" x-data="{ page: 1, loading: false, submissions: [] }" x-init="fetchSubmissions()">
+        <template x-for="submission in submissions" :key="submission.id">
+            <div x-html="submission"></div>
+        </template>
+        <div x-show="loading" x-cloak>
+            {% include 'components/loading_spinner.html' %}
+        </div>
+        <div x-show="page !== null" x-intersect="fetchSubmissions" class="h-10"></div>
+    </div>
+</div>
+
+<script id="rubricData" type="application/json">
+    {{ assignment.rubric|json_script:"rubricData" }}
+</script>
+{% endblock %}
+
+{% block extra_js %}
+{{ block.super }}
+<script>
+function fetchSubmissions() {
+    if (this.loading) return;
+    this.loading = true;
+    fetch(`{% url 'assignment-submissions' assignment.id %}?page=${this.page}`)
+        .then(response => response.json())
+        .then(data => {
+            this.submissions = [...this.submissions, ...data.submissions];
+            this.page++;
+            this.loading = false;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            this.loading = false;
+        });
+}
+
+function loadMoreSubmissions() {
+    if (!this.loading && this.submissions.length > 0) {
+        this.fetchSubmissions();
+    }
+}
+</script>
+{% endblock %}
