@@ -1,0 +1,43 @@
+/* Add any custom styles here */
+[x-cloak] { display: none !important; }
+
+.submission-card {
+    transition: all 0.3s ease;
+}
+
+.submission-card:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.grade-section {
+    transition: all 0.3s ease;
+}
+
+.grade-section.graded {
+    background-color: #f0fff4;
+    padding: 1rem;
+    border-radius: 0.375rem;
+}
+
+.toggle-feedback-btn {
+    cursor: pointer;
+}
+
+.feedback-content {
+    background-color: #e6fffa;
+    padding: 1rem;
+    border-radius: 0.375rem;
+    margin-top: 0.5rem;
+}
+
+.rubric-category {
+    transition: all 0.3s ease;
+}
+
+.rubric-category.z-10 {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+#rubricShadow {
+    transition: all 0.3s ease;
+}

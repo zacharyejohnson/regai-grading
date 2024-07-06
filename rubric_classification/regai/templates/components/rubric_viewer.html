@@ -1,0 +1,65 @@
+<div id="rubricContainer" class="mb-8 relative" x-data="{ editingCategory: null }">
+    <h2 class="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-200">Rubric</h2>
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
+        {% for category in assignment.rubric %}
+            <div class="border-b border-gray-200 dark:border-gray-700 last:border-b-0" x-data="{ expanded: false }">
+                <div class="flex items-center justify-between px-4 py-2">
+                    <button @click="expanded = !expanded" class="flex-grow text-left focus:outline-none">
+                        <span class="font-semibold text-gray-700 dark:text-gray-300">{{ category.category }} ({{ category.weight }}%)</span>
+                    </button>
+                    <button @click="editingCategory = {{ forloop.counter0 }}; $nextTick(() => $refs.overlay.classList.remove('hidden'))" class="text-blue-600 hover:text-blue-800 focus:outline-none">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                    </button>
+                </div>
+                <div x-show="expanded" x-collapse>
+                    <table class="w-full border-collapse">
+                        <thead>
+                            <tr>
+                                {% for level in category.scoring_levels %}
+                                    <th class="border-t border-gray-200 dark:border-gray-700 p-2 bg-gray-50 dark:bg-gray-900 text-gray-600 dark:text-gray-400">{{ level.name }}</th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                {% for level in category.scoring_levels %}
+                                    <td class="border-t border-gray-200 dark:border-gray-700 p-2">
+                                        <p class="font-bold text-gray-800 dark:text-gray-200">{{ level.score }}</p>
+                                        <p class="text-gray-600 dark:text-gray-400">{{ level.description }}</p>
+                                    </td>
+                                {% endfor %}
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Overlay for editing -->
+    <div x-ref="overlay" x-show="editingCategory !== null" @click.self="editingCategory = null" class="fixed inset-0 bg-black bg-opacity-50 hidden" style="z-index: 1000;">
+        <div x-show="editingCategory !== null" class="absolute inset-x-0 bg-white dark:bg-gray-800 shadow-lg" :style="`top: ${$refs['category'+editingCategory]?.offsetTop}px; height: ${$refs['category'+editingCategory]?.offsetHeight}px;`">
+            <div class="p-4">
+                <h3 class="text-lg font-semibold mb-2">Edit Category: <span x-text="assignment.rubric[editingCategory]?.category"></span></h3>
+                <div class="space-y-4">
+                    <template x-for="(level, index) in assignment.rubric[editingCategory]?.scoring_levels" :key="index">
+                        <div>
+                            <label :for="'level-name-'+index" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Level Name</label>
+                            <input :id="'level-name-'+index" type="text" x-model="level.name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+
+                            <label :for="'level-score-'+index" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mt-2">Score</label>
+                            <input :id="'level-score-'+index" type="number" x-model="level.score" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+
+                            <label :for="'level-description-'+index" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mt-2">Description</label>
+                            <textarea :id="'level-description-'+index" x-model="level.description" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"></textarea>
+                        </div>
+                    </template>
+                </div>
+                <div class="mt-4 flex justify-end space-x-2">
+                    <button @click="editingCategory = null" class="px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300">Cancel</button>
+                    <button @click="saveCategory(editingCategory)" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

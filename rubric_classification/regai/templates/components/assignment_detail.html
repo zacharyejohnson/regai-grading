@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}REGAI - {{ assignment.title }}{% endblock %}
+
+{% block content %}
+<div data-assignment-id="{{ assignment.id }}">
+    <h1 class="text-3xl font-bold mb-2">{{ assignment.title }}</h1>
+    <p class="text-gray-600 mb-4">{{ assignment.description }}</p>
+    
+    {% include 'components/rubric_viewer.html' %}
+</div>
+
+{{ assignment.rubric|json_script:"rubricData" }}
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/app.js' %}"></script>
+{% endblock %}
