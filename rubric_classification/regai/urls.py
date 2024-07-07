@@ -1,12 +1,12 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import AssignmentViewSet, regai_interface, assignment_view
+from .views import AssignmentViewSet, SubmissionViewSet, KnowledgeBaseViewSet
 
 router = DefaultRouter()
-router.register(r'assignments', AssignmentViewSet, basename='assignment')
+router.register(r'assignments', AssignmentViewSet)
+router.register(r'submissions', SubmissionViewSet)
+router.register(r'knowledge-base', KnowledgeBaseViewSet)
 
 urlpatterns = [
-    path('home/', regai_interface, name='regai_interface'),
-    path('api/', include(router.urls)),
-    path('assignment/<int:assignment_id>/', assignment_view, name='assignment_view'),
+    path('', include(router.urls)),
 ]
