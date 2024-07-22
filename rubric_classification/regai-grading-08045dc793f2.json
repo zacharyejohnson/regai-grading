@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "regai-grading",
+  "private_key_id": "08045dc793f2d810fc80bd0d32642a19da8be4de",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDh9c37P73hBYUv\nEAMnMifw2I3wDWqaqR3QK2eweiMPIEeQ8YaBckg8xf1WrDN3TiMh9sqlC+LcsKCK\n3XiEx2wqaAerDwHQCndXl0qSGgpZRM8d9WOxMBny4fwKL4h3OkRXrsDkJx2K1OU6\nWY3573s4kI1wYIB0V+18BbpHmAbr8dlXc7YXYcWt6rQsEZzHRNsINAjFxre3tOUc\nEP4Lgv3uWN2P3z7xTAY9tSgYN018xrCbcQxYDtEkteLxznJXnOb/3ohh2ukgdEnJ\n+7qFZzv2QU7glV+LTeG0LdeClLJu/xX0tbmrLVWS3eOOzvbZOxepaLDJUD6U5L/4\nJDbZAzM1AgMBAAECggEAEHQx/ODyHnPktB3eIOlL08OtKEUN1XfJojo66XSnX2da\nFsGjqgLspDJFpZ1R/RbNQ6ChNn4EVc4tzpbcewy7gWYEYu4rk17jvFbZuQRY6xGx\n5ExVZ1ZpmVBf5kz6SrZNOjZROPvpMI4aqBJT3paT+jU6e2unhvFNK4oOO77kCCO4\nCJNxOk7W6GiP4rzymyNalxD4zA2DetU6mLV4OXSH+CWNHTZ9kc+g7VndgOJ3JI+U\nSMpxTXz2fdTwrTf7oONXh0yn7aAGRtztrDN1iS/e8pIpuzirVHQBMNoHIvc9rVK5\n6QXTzwXLf7y6bRk9DahHGY2qOrGpccKbec0eoO3SwQKBgQDzFx9tOgGIm7U+tAef\nF+XyoRN2bppFtLSiS2gvxXF7Rlh6NfTPfTuHhY8a3nGnnmIcJm3XxgL5U9djP85w\n1Zm+6aLAlNJ+vzDePg3puQuiEOkYUZZMUxfyYDkaYgrGtpOSM1k2FT2jSTmVoPYg\n1c/nz67/D/+pTu5ysiXhk6kFwQKBgQDt9cr+piV5VvRcMzygFgUHhTRYueNCsWla\nMYyiE1W1a5WfpU5YNacuG5MTjjxAjFjChFemB7Zc/y42aOpowGooENv5da1SIC7O\nQczP6zHD9JmnxBGKAaaXggYljs84cMVa3Zr2ywY9KzopfNaWlea2yUhpMSxrhBr0\nWdKyqVwSdQKBgGjPonQ0225sPHRhqRuWcUXw33Rj8c52QJ/tRWm7htdxGDrxQrGn\nvGANXQtnt7de2cxrYVb0gFnCJY8cdsU9w8GF+O9x+2Q8yTQ5q0QHzhU9l1Mt8lDM\nTvnpNRXECgNtuykBTMi91cquis6SDS1RIwg/CqPc4Q2+A5+eYijlwq3BAoGBALO4\nVMU5BMp88veDtwENQGUqpJtyYYLobTIyhA2Q3sWzaID3n5EdjJNVPiKh5T23Af5/\nZ5c88e2QyP1NBeVxlXuHKCxjRTDmn5MlvSM3dhGSdk5v1fNORdzd1fidwEHXYia7\ngiNsuNyP/lCBOaznsCVTJj5UZkEZuCXehTRslt5VAoGBAN53u5YOY22s38N3MAvz\nXWfNg5x4rhLu8BbI16zUMlDLC+e9ppnT73+yuvy3gPuKuD5Kf2XMbd4LBrKHQlFR\neQ4pNtMM2a3WTsivInM0nO4ICancGTwapSBXl3smL239cY8t2Vie0M3eeH+CIQeT\njXnWDusaJoXvIIV4YPPnK+Wt\n-----END PRIVATE KEY-----\n",
+  "client_email": "regai-grading@regai-grading.iam.gserviceaccount.com",
+  "client_id": "113309704566108862217",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/regai-grading%40regai-grading.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

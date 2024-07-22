@@ -1,9 +1,11 @@
 import json
+import os
 from typing import Dict, List
 from haystack import component
 from haystack.components.generators import OpenAIGenerator
+from haystack_integrations.components.generators.google_vertex import VertexAITextGenerator
 from haystack.utils import Secret
-from ..models import Assignment, AssignmentAgent, AgentAction
+from ..models import Assignment, AssignmentAgent, KnowledgeBaseItem
 
 @component
 class Critic:
@@ -14,6 +16,7 @@ class Critic:
         self.openai_api_key = Secret.from_token(openai_api_key)
         self.model_name = model_name
         self.generator = OpenAIGenerator(api_key=self.openai_api_key, model=self.model_name)
+        self.assignment = assignment
         self.db_obj = AssignmentAgent.objects.create(
             assignment=assignment,
             agent_type='critic'
@@ -21,12 +24,22 @@ class Critic:
 
     @component.output_types(critique=Dict)
     def run(self, grade: Dict, rubric: Dict, grading_process: List[Dict]):
-        critique = self._generate_critique(grade, rubric, grading_process)
+        similar_critiques = self._retrieve_similar_critiques(grade)
+        critique = self._generate_critique(grade, rubric, grading_process, similar_critiques)
         revised_grade = self._revise_grade(grade, critique, rubric)
+        # self._add_to_knowledge_base(critique, grade, rubric)
         return {"critique": critique, "revised_grade": revised_grade}
 
-    def _generate_critique(self, grade: Dict, rubric: Dict, grading_process: List[Dict]) -> Dict:
-        prompt = self._prepare_critique_prompt(grade, rubric, grading_process)
+    def _retrieve_similar_critiques(self, grade: Dict) -> List[Dict]:
+        approved_critiques = KnowledgeBaseItem.objects.filter(
+            item_type='critique',
+            status='approved',
+            content__grade__overall_score__range=(grade['overall_score'] - 0.1, grade['overall_score'] + 0.1)
+        )[:5]  # Limit to 5 similar critiques
+        return [item.content for item in approved_critiques]
+
+    def _generate_critique(self, grade: Dict, rubric: Dict, grading_process: List[Dict], similar_critiques: List[Dict]) -> Dict:
+        prompt = self._prepare_critique_prompt(grade, rubric, grading_process, similar_critiques)
         response = self.generator.run(prompt=prompt)
 
         try:
@@ -51,7 +64,7 @@ class Critic:
 
         return revised_grade
 
-    def _prepare_critique_prompt(self, grade: Dict, rubric: Dict, grading_process: List[Dict]) -> str:
+    def _prepare_critique_prompt(self, grade: Dict, rubric: Dict, grading_process: List[Dict], similar_critiques: List[Dict]) -> str:
         prompt = f"""
         Review and critique the following grade based on the provided rubric and grading process.
 
@@ -63,6 +76,9 @@ class Critic:
 
         Grading Process:
         {json.dumps(grading_process, indent=2)}
+
+        Similar approved critiques for reference:
+        {json.dumps(similar_critiques, indent=2)}
 
         Your task is to:
         1. Assess the fairness and accuracy of the overall grade.
@@ -127,3 +143,13 @@ class Critic:
         Ensure your revisions are fair, justified, and aligned with both the critique and the original rubric.
         """
         return prompt
+
+    def _add_to_knowledge_base(self, critique: Dict, grade: Dict, rubric: Dict):
+        KnowledgeBaseItem.objects.create(
+            item_type='critique',
+            content={
+                'critique': critique,
+                'grade': grade,
+            },
+            status='pending'
+        )
