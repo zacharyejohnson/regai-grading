@@ -126,16 +126,15 @@ LOGGING = {
         'console': {
             'class': 'logging.StreamHandler',
         },
-    },
-    'root': {
-        'handlers': ['console'],
-        'level': 'INFO',
+        'file': {
+            'class': 'logging.FileHandler',
+            'filename': 'grading_debug.log',
+        },
     },
     'loggers': {
-        'django': {
-            'handlers': ['console'],
-            'level': 'INFO',
-            'propagate': False,
+        'grading_pipeline': {
+            'handlers': ['console', 'file'],
+            'level': 'DEBUG',
         },
     },
 }

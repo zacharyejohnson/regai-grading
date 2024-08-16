@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Assignment, Submission, Critique, Grade, Rubric
+from .models import Assignment, Submission, Critique, Grade, Rubric, SCORMData
 
 
 
@@ -19,9 +19,10 @@ class GradeSerializer(BaseKnowledgeItemSerializer):
         fields = BaseKnowledgeItemSerializer.Meta.fields + ['type', 'submission']
 
 class CritiqueSerializer(BaseKnowledgeItemSerializer):
+    grade = GradeSerializer()
     class Meta(BaseKnowledgeItemSerializer.Meta):
         model = Critique
-        fields = BaseKnowledgeItemSerializer.Meta.fields + ['grade', 'submission']
+        fields = BaseKnowledgeItemSerializer.Meta.fields + ['grade', 'submission', 'revision_status']
 
 class AssignmentSerializer(serializers.ModelSerializer):
     class Meta:
@@ -35,6 +36,12 @@ class SubmissionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Submission
-        fields = ['id', 'assignment', 'student_name', 'content', 'file', 'submitted_at', 'status', 'overall_score', 'category_scores', 'grading_critique', 'graded_at', 'grades', 'critiques']
+        fields = ['id', 'assignment', 'student_name', 'content', 'file', 'submitted_at', 'status', 'overall_score',
+                  'category_scores', 'grading_critique', 'graded_at', 'grades', 'critiques']
 
 
+class SCORMDataSerializer:
+    submission = SubmissionSerializer(read_only=True)
+    class Meta:
+        model = SCORMData
+        fields = '__all__'

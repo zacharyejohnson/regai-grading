@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.imsglobal.org/xsd/imsmd_rootv1p2p1"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:imsmd="http://www.imsglobal.org/xsd/imsmd_rootv1p2p1"
+            elementFormDefault="qualified"
+            version="IMS MD 1.2.1">
+
+    <xsd:element name="lom">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="imsmd:general" minOccurs="0"/>
+                <xsd:element ref="imsmd:lifecycle" minOccurs="0"/>
+                <xsd:element ref="imsmd:metametadata" minOccurs="0"/>
+                <xsd:element ref="imsmd:technical" minOccurs="0"/>
+                <xsd:element ref="imsmd:educational" minOccurs="0"/>
+                <xsd:element ref="imsmd:rights" minOccurs="0"/>
+                <xsd:element ref="imsmd:relation" minOccurs="0" maxOccurs="unbounded"/>
+                <xsd:element ref="imsmd:annotation" minOccurs="0" maxOccurs="unbounded"/>
+                <xsd:element ref="imsmd:classification" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="general">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="title" type="xsd:string" minOccurs="0"/>
+                <xsd:element name="description" type="xsd:string" minOccurs="0"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="lifecycle">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="version" type="xsd:string" minOccurs="0"/>
+                <xsd:element name="status" type="xsd:string" minOccurs="0"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="metametadata">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="metadatascheme" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="technical">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="format" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="educational">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="learningresourcetype" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="rights">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="cost" type="xsd:string" minOccurs="0"/>
+                <xsd:element name="copyrightandotherrestrictions" type="xsd:string" minOccurs="0"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="relation">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="kind" type="xsd:string" minOccurs="0"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="annotation">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="description" type="xsd:string" minOccurs="0"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="classification">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="purpose" type="xsd:string" minOccurs="0"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+</xsd:schema>

@@ -62,7 +62,7 @@ class RubricGenerationPipeline:
               "scoring_levels": [
                 {
                   "level": Level number (e.g., 1),
-                  "score": Score for this level,
+                  "score": Score for this level (identical to level, i.e., 1),
                   "description": "Detailed description of this scoring level"
                 },
                 ...
@@ -71,6 +71,8 @@ class RubricGenerationPipeline:
             ...
           ]
         }
+        
+        Give your scoring levels in ascending order (i.e., give level 1 first)
 
         Ensure the rubric is tailored to the assignment description and takes inspiration from the similar rubrics provided.
         The rubric NEEDS to include TANGIBLE items one could see in an assignment submission that would allow the submission to reach 
@@ -174,38 +176,39 @@ class RubricGenerationPipeline:
 
 
 
-def extract_json(response):
-    print("BEGINNING JSON EXTRACTION PROCESS: ")
-    print(response)
-    # Find the start of the JSON structure (object or array)
-    json_start_obj = response.find('{')
-    json_start_arr = response.find('[')
-
-    if json_start_obj == -1 and json_start_arr == -1:
-        print("No JSON structure found in the response")
-        return None
-
-    # Determine which starts first (if both exist)
-    if json_start_arr != -1 and (json_start_arr < json_start_obj or json_start_obj == -1):
-        json_start = json_start_arr
-        end_char = ']'
-    else:
-        json_start = json_start_obj
-        end_char = '}'
-
-    # Find the corresponding end character
-    json_end = response.rfind(end_char)
-
-    if json_end == -1:
-        print("No properly closed JSON structure found")
-        return None
-
-    # Extract the JSON part of the response
-    json_str = response[json_start:json_end + 1]
-
+def extract_json(text):
     try:
+        # Find the start of the JSON structure (object or array)
+        json_start = text.find('{')
+        if json_start == -1:
+            json_start = text.find('[')
+        if json_start == -1:
+            return None
+
+        # Find the corresponding end character
+        stack = []
+        for i, char in enumerate(text[json_start:]):
+            if char == '{' or char == '[':
+                stack.append(char)
+            elif char == '}' or char == ']':
+                if not stack:
+                    return None
+                if (char == '}' and stack[-1] == '{') or (char == ']' and stack[-1] == '['):
+                    stack.pop()
+                    if not stack:
+                        json_end = json_start + i + 1
+                        break
+                else:
+                    return None
+
+        if stack:
+            return None
+
+        # Extract the JSON part
+        json_str = text[json_start:json_end]
+
         # Parse the JSON
         return json.loads(json_str)
     except json.JSONDecodeError as e:
-        print(f"Failed to parse JSON: {e}")
+        logger.error(f"Failed to parse JSON: {str(e)}")
         return None

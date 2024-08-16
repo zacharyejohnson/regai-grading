@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="06bf70ff-1f56-4a16-8f79-828ffabb169d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.ipynb_checkpoints/Untitled-checkpoint.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.ipynb_checkpoints/correlation_heatmap-checkpoint.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.ipynb_checkpoints/score_distribution_and_agreement-checkpoint.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../data/REGAI-Analysis.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../data/asap-aes/Essay_Set_Descriptions/Essay_Set_Descriptions/Essay Set #1--ReadMeFirst.docx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../data/asap-aes/Essay_Set_Descriptions/Essay_Set_Descriptions/Essay Set #2--ReadMeFirst.docx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../data/asap-aes/Essay_Set_Descriptions/Essay_Set_Descriptions/Essay Set #3--ReadMeFirst.docx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../data/asap-aes/Essay_Set_Descriptions/Essay_Set_Descriptions/Essay Set #4--ReadMeFirst.docx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../data/asap-aes/Essay_Set_Descriptions/Essay_Set_Descriptions/Essay Set #5--ReadMeFirst.docx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../data/asap-aes/Essay_Set_Descriptions/Essay_Set_Descriptions/Essay Set #6--ReadMeFirst.docx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../data/asap-aes/Essay_Set_Descriptions/Essay_Set_Descriptions/Essay Set #7--ReadMeFirst.docx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../data/asap-aes/Essay_Set_Descriptions/Essay_Set_Descriptions/Essay Set #8--ReadMeFirst.docx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../data/asap-aes/Essay_Set_Descriptions/Essay_Set_Descriptions/Guidelines for Transcribing Student Essays.docx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../data/asap-aes/Essay_Set_Descriptions/Essay_Set_Descriptions/essay_set_descriptions.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../data/automated_essay_grading_analysis.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../data/automated_essay_grading_analysis2.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../data/automated_essay_grading_analysis3.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../data/automated_essay_grading_analysis4.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../data/correlation_heatmap.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../data/correlations.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../data/essay_grading_results.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../data/essay_grading_results_with_human_comparisons.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../data/essay_grading_results_with_human_comparisons_onlyrubric.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../data/essay_set_1_grading_analysis.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../data/essay_set_1_grading_analysis2.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../data/grade_comparison_results.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../data/grade_comparison_results2.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../data/grade_comparison_results_essay_set_1.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../data/grade_comparison_results_essay_set_2.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../data/grade_comparison_results_essay_set_3.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../data/grade_comparison_results_essay_set_4.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../data/grade_comparison_results_essay_set_5.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../data/grade_comparison_results_essay_set_6.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../data/grade_comparison_results_essay_set_7.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../data/grade_comparison_results_essay_set_8.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../data/grade_comparison_results_full.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../data/grade_comparison_results_full_critique_cycle.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../data/grade_comparison_results_just_rubric.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../data/heatmap.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../data/histogram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../data/mae.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../data/mae_rubriconly.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../data/method_comparison.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../data/regai_scoring_results.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../data/rubric_only_analysis.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../data/scatter_plot.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../data/score_distribution_and_agreement.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../data/single_critique_analysis.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/adlcp_rootv1p2.xsd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/imscp_rootv1p1p2.xsd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/imsmanifest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/imsmd_rootv1p2p1.xsd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/public/favicon.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/public/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/public/logo192.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/public/logo512.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/public/manifest.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/public/robots.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/AnimatedRoutes.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/App.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/App.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/App.test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/apiService.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/assets/logo-black.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/assets/logo-color.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/assets/logo-no-background.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/assets/logo-white.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/axiosConfig.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/Assignment/AssignmentView.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/Assignment/GradeOverrideModal.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/Assignment/SubmissionDetailsModal.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/Assignment/SubmissionTable.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/Auth/LoginPage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/Auth/SignUpPage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/Common/Button.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/Dashboard/AssignmentCard.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/Dashboard/AssignmentGenerationCard.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/Dashboard/CreateAssignmentButton.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/Dashboard/CreateAssignmentModal.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/Dashboard/Dashboard.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/Dashboard/Pagination.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/ErrorBoundary.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/Grading/CritiqueDisplay.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/Grading/GradeDisplay.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/Grading/GradingPipeline.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/Grading/GradingProgress.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/Grading/GradingSummary.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/Grading/RevisionForm.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/KnowledgeBase/AssignmentGrid.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/KnowledgeBase/AssignmentKnowledgeBaseCycle.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/KnowledgeBase/AssignmentKnowledgeBasePage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/KnowledgeBase/AssignmentSelector.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/KnowledgeBase/CritiqueModal.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/KnowledgeBase/CycleVisualization.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/KnowledgeBase/DocumentCard.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/KnowledgeBase/DocumentViewer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/KnowledgeBase/GradeModal.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/KnowledgeBase/GradeOverrideModal.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/KnowledgeBase/KnowledgeBase.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/KnowledgeBase/KnowledgeBaseItem.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/KnowledgeBase/KnowledgeBaseItemForm.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/KnowledgeBase/KnowledgeBaseItemList.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/KnowledgeBase/KnowledgeBaseItemView.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/KnowledgeBase/KnowledgeBaseList.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/KnowledgeBase/KnowledgeBasePage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/KnowledgeBase/Modal.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/KnowledgeBase/PipelineStage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/KnowledgeBase/RubricModal.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/KnowledgeBase/SubmissionCycle.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/KnowledgeBase/SubmissionGradingCard.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/KnowledgeBase/ViewDetailsModal.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/Layout/Footer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/Layout/Header.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/Layout/Layout.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/Loading/DynamicLoadingScreen.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/LoadingSpinner.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/NotFound.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/Rubric/RubricApprovalBanner.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/Rubric/RubricApprovalModal.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/Rubric/RubricDisplay.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/Rubric/RubricEditModal.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/Rubric/RubricEditor.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/Rubric/ScoringLevelTable.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/Submission/SubmissionList.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/hooks/useAssignments.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/hooks/useKnowledgeBaseItems.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/utils/api.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/utils/knowledgeBaseApi.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/components/utils/truncateText.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/contexts/ThemeContext.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/index.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/logo.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/reportWebVitals.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/scorm-entry.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/scormApiWrapper.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../regai-scorm-frontend/src/setupTests.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../rubric_classification/regai/migrations/0005_critique_revision_status.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../rubric_classification/regai/pipelines/grade_override.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../rubric_classification/regai/views/scorm_views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.ipynb_checkpoints/REGAI-Analysis-checkpoint.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/../.ipynb_checkpoints/REGAI-Analysis-checkpoint.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../REGAI-Analysis.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../correlations_norubric.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/../data/correlations_norubric.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../correlations_withrubric.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/../data/correlations_withrubric.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../correlations_withrubric_andcritic_noknowledgebase.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/../data/correlations_withrubric_andcritic_noknowledgebase.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../correlations_withrubric_andcritic_withknowledgebase.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/../data/correlations_withrubric_andcritic_withknowledgebase.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../correlations_withrubric_andcritic_withknowledgebase1.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/../data/correlations_withrubric_andcritic_withknowledgebase1.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ratings_comparison_norubric.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/../data/ratings_comparison_norubric.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ratings_comparison_withrubric.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/../data/ratings_comparison_withrubric.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ratings_comparison_withrubric_andcritic_noknowledgebase.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/../data/ratings_comparison_withrubric_andcritic_noknowledgebase.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ratings_comparison_withrubric_andcritic_withknowledgebase.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/../data/ratings_comparison_withrubric_andcritic_withknowledgebase.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ratings_comparison_withrubric_andcritic_withknowledgebase1.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/../data/ratings_comparison_withrubric_andcritic_withknowledgebase1.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../data/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/base/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/../rubric_classification/base/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/../rubric_classification/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/regai-frontend" beforeDir="false" afterPath="$PROJECT_DIR$/../rubric_classification/regai-frontend" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/regai/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/../rubric_classification/regai/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/regai/pipelines/grading.py" beforeDir="false" afterPath="$PROJECT_DIR$/../rubric_classification/regai/pipelines/grading.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/regai/pipelines/rubric_generation.py" beforeDir="false" afterPath="$PROJECT_DIR$/../rubric_classification/regai/pipelines/rubric_generation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/regai/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/../rubric_classification/regai/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/regai/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/../rubric_classification/regai/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/regai/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/../rubric_classification/regai/views/regai_views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/004_Panadero__Jonsson_2013_The_use_of_scoring_rubrics_for_formative_assessme_EK0Mix8.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/004_Panadero__Jonsson_2013_The_use_of_scoring_rubrics_for_formative_assessme_qDOpUW1.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/20240620021638628.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/20240620021638628_F46UDMe.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/20240620021638628_VegJ8W0.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/20240620021638628_sHgHk4W.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/20240620021638628_xF95z2I.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/20240621150206184.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/20240621150206184_2534sxR.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/20240621150206184_J6eYebv.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/20240621150206184_KFNSjcs.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/20240621150206184_SxHg4Xs.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/20240621150206184_TjsgYto.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/20240621150206184_eP4DL7K.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/Bonus_Assignment_Zach_J_.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/Bonus_Assignment_Zach_J__qvjSGS0.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/Bonus_Assignment_Zach_J__rswPJhQ.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/Computer_Vision_Engineer_-_Photoreal_Capture___Meta_Careers.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/Cover_Letter_USB.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/Cover_Letter_USB_MB04SXt.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/Cover_Letter_USB_QO792gc.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/Cover_Letter_USB_gi0EzxM.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/Data_Analyst_Trust_and_Safety_Intelligence___Meta_Careers.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/Digital_Innovation_Student_Experience_Job_in_Fargo_ND_-_Doosan_Bobcat___doos_5iUauBS.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/Digital_Innovation_Student_Experience_Job_in_Fargo_ND_-_Doosan_Bobcat___doos_R6PBswM.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/Digital_Innovation_Student_Experience_Job_in_Fargo_ND_-_Doosan_Bobcat___doos_rvRBmAu.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/Doc1.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/GenAI_Content_Manager___Meta_Careers.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/MP705.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/MP705_58qSN5g.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/MP705_JobhGlX.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/MP705_hjTSS2O.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/MP705_pkTBuk1.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/MP705_psMi7br.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/PARE2000.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/PARE2000_0MAr7La.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/PARE2000_3Eymd6u.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/PARE2000_5TKCfEG.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/PARE2000_BF8XduU.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/PARE2000_Z7wVCZu.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/PARE2000_lQ4cYpp.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/PARE2000_pmC9Y0B.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/PARE2000_uAZ6xML.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/Payroll_Analyst___Meta_Careers.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/Payroll_Analyst___Meta_Careers_1AhUdU1.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/REGAI_references.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/REGAI_references.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/REGAI_references_bwy1oTg.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/Software_Engineer_-_Calibration_Team___Meta_Careers.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/Software_Engineer_-_Calibration_Team___Meta_Careers_bbWDqhZ.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/Software_Engineer_-_Calibration_Team___Meta_Careers_zBXRpbu.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/ZJ_Edits_-_The_Market_Algorithm_as_Distributed_Genetic_Algorithm_Draft.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/Zach_Johnson_Resume_2023.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/Zach_Johnson_Resume_2024.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/awsdata_2.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/lmstudio-server-log.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/pare-1398-moskal.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/pare-1398-moskal_3z6IyMk.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/pare-1398-moskal_4OyEHfJ.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/pare-1398-moskal_9BhLhn3.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/pare-1398-moskal_cKG7bx6.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/pare-1398-moskal_dxk6wqQ.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/pare-1398-moskal_nIZa3X4.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/ssrn-4808386.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/ssrn-4808386_0eoJ1sB.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/ssrn-4808386_1oxWjVO.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/ssrn-4808386_2tUjyPE.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/ssrn-4808386_VpUkyXz.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/ssrn-4808386_fUr6wIo.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rubric_classification/submissions/zachJ_Transcript_Spring_2024.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../summary_stats_norubric.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/../data/summary_stats_norubric.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../summary_stats_withrubric.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/../data/summary_stats_withrubric.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../summary_stats_withrubric_andcritic_noknowledgebase.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/../data/summary_stats_withrubric_andcritic_noknowledgebase.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../summary_stats_withrubric_andcritic_withknowledgebase.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/../data/summary_stats_withrubric_andcritic_withknowledgebase.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../summary_stats_withrubric_andcritic_withknowledgebase1.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/../data/summary_stats_withrubric_andcritic_withknowledgebase1.xlsx" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Jupyter Notebook" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="2kZWG49lbfFxaxiyeexb86D6Hud" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/NDSU-Prof/Documents/REGAI-Assignment-Grading/regai-scorm",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_interpreter_path": "node",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\NDSU-Prof\Documents\REGAI-Assignment-Grading\regai-scorm\src\scormHelpers" />
+    </key>
+  </component>
+  <component name="RunManager" selected="npm.npm start">
+    <configuration name="Debug Application" type="JavascriptDebugType" uri="http://localhost:3000">
+      <method v="2" />
+    </configuration>
+    <configuration name="npm start" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-PY-241.14494.241" />
+        <option value="bundled-python-sdk-0509580d9d50-28c9f5db9ffe-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.14494.241" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="06bf70ff-1f56-4a16-8f79-828ffabb169d" name="Changes" comment="" />
+      <created>1723491479247</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1723491479247</updated>
+      <workItem from="1723491480316" duration="1013000" />
+      <workItem from="1723492693046" duration="1287000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+</project>
