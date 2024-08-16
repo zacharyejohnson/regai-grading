@@ -1,6 +1,6 @@
 # prompts/critic_prompt.py
 
-from haystack.nodes import PromptTemplate
+from haystack.components.builders.prompt_builder import PromptBuilder
 
 CRITIC_PROMPT = PromptTemplate(
     prompt="""

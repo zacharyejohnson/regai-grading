@@ -1,6 +1,10 @@
 from rest_framework import serializers
+<<<<<<< HEAD
 from .models import Assignment, Submission, Critique, Grade, Rubric, SCORMData
 
+=======
+from .models import Assignment, Submission
+>>>>>>> parent of fc22ff7 (for marsh)
 
 
 class BaseKnowledgeItemSerializer(serializers.ModelSerializer):
@@ -25,8 +29,11 @@ class CritiqueSerializer(BaseKnowledgeItemSerializer):
         fields = BaseKnowledgeItemSerializer.Meta.fields + ['grade', 'submission', 'revision_status']
 
 class AssignmentSerializer(serializers.ModelSerializer):
+    submission_count = serializers.SerializerMethodField()
+
     class Meta:
         model = Assignment
+<<<<<<< HEAD
         fields = ['id', 'title', 'description', 'rubric', 'created_at', 'last_viewed']
         read_only_fields = ['id', 'created_at', 'last_viewed']
 
@@ -45,3 +52,19 @@ class SCORMDataSerializer:
     class Meta:
         model = SCORMData
         fields = '__all__'
+=======
+        fields = ['id', 'title', 'description', 'rubric', 'submission_count']
+
+    def get_submission_count(self, obj):
+        return obj.submissions.count()
+
+class SubmissionSerializer(serializers.ModelSerializer):
+    category_scores = serializers.JSONField()
+    overall_justification = serializers.CharField()
+
+    class Meta:
+        model = Submission
+        fields = ['id', 'student_name', 'grade', 'category_scores', 'feedback', 'overall_justification']
+class RubricSerializer(serializers.Serializer):
+    rubric = serializers.JSONField()
+>>>>>>> parent of fc22ff7 (for marsh)

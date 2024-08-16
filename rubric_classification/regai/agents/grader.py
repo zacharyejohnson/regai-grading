@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import json
 import os
 from typing import Dict, List
@@ -119,3 +120,5 @@ class Grader:
         embedding = self.embedder.run(text=content_str)['embedding']
         doc = Document(content=content_str, embedding=embedding)
         self.document_store.write_documents([doc])
+=======
+>>>>>>> parent of fc22ff7 (for marsh)
