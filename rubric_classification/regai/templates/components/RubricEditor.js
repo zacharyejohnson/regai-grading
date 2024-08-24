@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from "../../../regai-frontend/src/components/utils/api";
 
 function RubricEditor() {
   const { id } = useParams();
@@ -13,7 +13,7 @@ function RubricEditor() {
   }, [id]);
 
   const fetchRubric = () => {
-    axios.get(`/api/assignments/${id}/`)
+    api.get(`/assignments/${id}/`)
       .then(response => {
         setRubric(response.data.rubric);
         setIsAIGenerated(response.data.is_ai_generated_rubric);
@@ -22,7 +22,7 @@ function RubricEditor() {
   };
 
   const handleSave = () => {
-    axios.post(`/api/assignments/${id}/update_rubric/`, { rubric })
+    api.post(`/assignments/${id}/update_rubric/`, { rubric })
       .then(() => {
         alert('Rubric saved successfully');
         navigate(`/assignment/${id}`);

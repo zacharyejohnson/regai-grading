@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { API_BASE_URL } from '../utils/api';
+import api from '../utils/api';
 
 function RubricEditor() {
   const { id } = useParams();
@@ -14,7 +13,7 @@ function RubricEditor() {
   }, [id]);
 
   const fetchRubric = () => {
-    axios.get(`${API_BASE_URL}/assignments/${id}/`)
+    api.get(`/assignments/${id}/`)
       .then(response => {
         setRubric(response.data.rubric);
         setIsAIGenerated(response.data.is_ai_generated_rubric);
@@ -23,10 +22,10 @@ function RubricEditor() {
   };
 
   const handleSave = () => {
-    axios.post(`${API_BASE_URL}/assignments/${id}/update_rubric/`, { rubric })
+    api.post(`/assignments/${id}/update_rubric/`, { rubric })
       .then(() => {
         alert('Rubric saved successfully');
-        navigate(`${API_BASE_URL}/assignment/${id}`);
+        navigate(`/assignment/${id}`);
       })
       .catch(error => console.error('Error saving rubric:', error));
   };

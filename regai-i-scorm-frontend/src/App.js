@@ -1,23 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import AssignmentView from './components/AssignmentView';
+import SubmissionForm from './components/SubmissionForm';
+import HowItWorks from './components/HowItWorks';
+import Header from './components/Header';
+import Footer from './components/Footer';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="flex flex-col min-h-screen bg-gray-100">
+      <Header />
+      <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <Routes>
+          <Route path="/" element={<AssignmentView />} />
+          <Route path="/submit" element={<SubmissionForm />} />
+          <Route path="/how-it-works" element={<HowItWorks />} />
+        </Routes>
+      </main>
+      <Footer />
     </div>
   );
 }

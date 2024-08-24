@@ -1,11 +1,13 @@
 <?xml version="1.0" standalone="no" ?>
-<manifest identifier="com.example.assignment" version="1"
-          xmlns="http://www.imsproject.org/xsd/imscp_rootv1p1p2"
+<manifest xmlns="http://www.imsproject.org/xsd/imscp_rootv1p1p2"
           xmlns:adlcp="http://www.adlnet.org/xsd/adlcp_rootv1p2"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          identifier="com.scorm.regai"
+          version="1"
           xsi:schemaLocation="http://www.imsproject.org/xsd/imscp_rootv1p1p2 imscp_rootv1p1p2.xsd
-                              http://www.imsglobal.org/xsd/imsmd_rootv1p2p1 imsmd_rootv1p2p1.xsd
-                              http://www.adlnet.org/xsd/adlcp_rootv1p2 adlcp_rootv1p2.xsd">
+           http://www.imsglobal.org/xsd/imsmd_rootv1p2p1 imsmd_rootv1p2p1.xsd
+           http://www.adlnet.org/xsd/adlcp_rootv1p2 adlcp_rootv1p2.xsd"
+>
   <metadata>
     <schema>ADL SCORM</schema>
     <schemaversion>1.2</schemaversion>
@@ -21,16 +23,18 @@
   <resources>
     <resource identifier="resource_1" type="webcontent" adlcp:scormtype="sco" href="index.html">
       <file href="index.html"/>
-      <file href="static/css/main.css"/>
-      <file href="static/js/main.js"/>
+      <file href="asset-manifest.json"/>
       <file href="favicon.ico"/>
       <file href="logo192.png"/>
       <file href="logo512.png"/>
       <file href="manifest.json"/>
+      <file href="robots.txt"/>
       <file href="assets/logo-black.png"/>
       <file href="assets/logo-color.png"/>
       <file href="assets/logo-no-background.png"/>
       <file href="assets/logo-white.png"/>
+      <file href="index.html"/>
+      <file href="scorm/scormApiWrapper.js"/>
     </resource>
   </resources>
 </manifest>

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import axios from 'axios';
-import { API_BASE_URL } from '../utils/api';
+import api from '../utils/api';
 import Button from '../Common/Button';
 import LoadingSpinner from '../LoadingSpinner';
 
@@ -21,8 +20,8 @@ function SubmissionList() {
     setError(null);
     try {
       const [assignmentResponse, submissionsResponse] = await Promise.all([
-        axios.get(`${API_BASE_URL}/assignments/${assignmentId}/`),
-        axios.get(`${API_BASE_URL}/assignments/${assignmentId}/submissions/`)
+        api.get(`/assignments/${assignmentId}/`),
+        api.get(`/assignments/${assignmentId}/submissions/`)
       ]);
       setAssignment(assignmentResponse.data);
       setSubmissions(submissionsResponse.data);

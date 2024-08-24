@@ -1,48 +1,55 @@
 
 let scormAPI = null;
 
-const initializeScormAPI = (assignmentId, submissionId) => {
-  if (!scormAPI) {
-    // Access ScormAPI from the global scope (window object)
-    scormAPI = window.ScormAPI;
-  }
-};
 
-export const initializeSCORM = async (assignmentId, submissionId) => {
-  initializeScormAPI(assignmentId, submissionId);
-  return scormAPI.initialize();
-};
-
-export const finishSCORM = async () => {
-  if (!scormAPI) {
-    console.error('SCORM API not initialized');
+export const initializeSCORM = () => {
+  if (window.ScormAPI) {
+    const result = window.ScormAPI.initialize();
+    if (result === false) {
+      console.warn('SCORM initialization failed');
+      return false;
+    }
+    return true;
+  } else {
+    console.warn('SCORM API not found');
     return false;
   }
-  return scormAPI.terminate();
 };
 
-export const getSCORMValue = async (element) => {
-  if (!scormAPI) {
-    console.error('SCORM API not initialized');
-    return null;
-  }
-  return scormAPI.getValue(element);
-};
-
-export const setSCORMValue = async (element, value) => {
-  if (!scormAPI) {
-    console.error('SCORM API not initialized');
+export const finishSCORM = () => {
+  if (window.ScormAPI) {
+    return window.ScormAPI.terminate();
+  } else {
+    console.warn('SCORM API not found');
     return false;
   }
-  return scormAPI.setValue(element, value);
 };
 
-export const commitSCORM = async () => {
-  if (!scormAPI) {
-    console.error('SCORM API not initialized');
+export const getSCORMValue = (element) => {
+  if (window.ScormAPI) {
+    return window.ScormAPI.getValue(element);
+  } else {
+    console.error('SCORM API not found');
+    return '';
+  }
+};
+
+export const setSCORMValue = (element, value) => {
+  if (window.ScormAPI) {
+    return window.ScormAPI.setValue(element, value);
+  } else {
+    console.error('SCORM API not found');
     return false;
   }
-  return scormAPI.commit();
+};
+
+export const commitSCORM = () => {
+  if (window.ScormAPI) {
+    return window.ScormAPI.commit();
+  } else {
+    console.error('SCORM API not found');
+    return false;
+  }
 };
 
 export const getLastError = () => {

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { API_BASE_URL } from '../utils/api';
+import api from '../utils/api';
 import Button from '../Common/Button';
 
 function LoginPage() {
@@ -14,18 +13,21 @@ function LoginPage() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
+  e.preventDefault();
+  setError('');
 
-    try {
-      const response = await axios.post(`${API_BASE_URL}/auth/login/`, credentials);
-      localStorage.setItem('token', response.data.token);
-      navigate('/');
-    } catch (error) {
-      console.error('Login error:', error);
-      setError('Invalid username or password');
-    }
-  };
+  try {
+    const response = await api.post('/auth/login/', credentials);
+    console.log("auth data: ", response.data)
+    localStorage.setItem('token', response.data.tokens.access);
+    localStorage.setItem('refreshToken', response.data.tokens.refresh);
+    localStorage.setItem('user', JSON.stringify(response.data.user));
+    navigate('/');
+  } catch (error) {
+    console.error('Login error:', error);
+    setError('Invalid username or password');
+  }
+};
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">

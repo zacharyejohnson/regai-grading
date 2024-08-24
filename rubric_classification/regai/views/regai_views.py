@@ -1,24 +1,36 @@
 import json
 import os
 import re
+import shutil
+import tempfile
+import zipfile
 from datetime import timedelta
 
+from django.conf import settings
+from django.contrib.auth import get_user_model
+from django.contrib.auth.password_validation import validate_password
 from django.db import transaction
 from django.db.models import Prefetch, Avg
+from django.http import FileResponse
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
-from django.contrib.auth.models import User
 from django.forms.models import model_to_dict
 from haystack.document_stores.errors import DuplicateDocumentError
-from rest_framework import viewsets, status, serializers
+from rest_framework import viewsets, status, serializers, permissions
 from rest_framework.decorators import action
+from rest_framework.exceptions import ValidationError
+from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
 from celery import shared_task
+from rest_framework.views import APIView
+from rest_framework_simplejwt.tokens import RefreshToken
 
-from ..models import Assignment, Submission, Critique, Rubric, Grade
+from ..models import Assignment, Submission, Critique, Rubric, Grade, Course, Syllabus
 from ..pipelines.grade_override import GradeOverridePipeline
-from ..serializers import AssignmentSerializer, SubmissionSerializer, CritiqueSerializer, RubricSerializer, GradeSerializer
+from ..pipelines.process_syllabus import parse_file_text, process_syllabus
+from ..serializers import AssignmentSerializer, SubmissionSerializer, CritiqueSerializer, RubricSerializer, \
+    GradeSerializer, CourseSerializer, UserSerializer
 from ..pipelines.rubric_generation import RubricGenerationPipeline
 from ..pipelines.grading import GradingPipeline
 from dotenv import load_dotenv, find_dotenv
@@ -32,16 +44,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-from haystack.dataclasses import Document
-from haystack.document_stores.in_memory import InMemoryDocumentStore
-from haystack.components.retrievers import InMemoryEmbeddingRetriever
-from haystack.components.embedders import SentenceTransformersTextEmbedder
-
-# Initialize document store and retriever
-document_store = InMemoryDocumentStore(embedding_similarity_function="cosine")
-embedder = SentenceTransformersTextEmbedder()
-retriever = InMemoryEmbeddingRetriever(document_store=document_store)
-embedder.warm_up()
+User = get_user_model()
 
 
 class BaseKnowledgeItemViewSet(viewsets.ModelViewSet):
@@ -64,6 +67,7 @@ class BaseKnowledgeItemViewSet(viewsets.ModelViewSet):
         instance.save()
 
         return Response(self.get_serializer(instance).data)
+
 
 class RubricViewSet(BaseKnowledgeItemViewSet):
     queryset = Rubric.objects.all()
@@ -107,11 +111,83 @@ class RubricViewSet(BaseKnowledgeItemViewSet):
         return Response(serializer.data)
 
 
+class CourseViewSet(viewsets.ModelViewSet):
+    serializer_class = CourseSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    parser_classes = (MultiPartParser, FormParser)
 
+    def get_queryset(self):
+        return Course.objects.filter(instructor=self.request.user).prefetch_related(
+            Prefetch('assignments', queryset=Assignment.objects.order_by('-created_at'))
+        )
+
+    @transaction.atomic
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        course = Course.objects.create(**serializer.data, instructor=self.request.user)
+        print(serializer.data)
+
+        if 'syllabus' in request.FILES:
+            self._process_syllabus(request.FILES['syllabus'], course)
+
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+    @action(detail=True, methods=['POST'])
+    @transaction.atomic
+    def upload_syllabus(self, request, pk=None):
+        course = self.get_object()
+        syllabus_file = request.FILES.get('syllabus')
+
+        if not syllabus_file:
+            return Response({'error': 'No syllabus file provided'}, status=status.HTTP_400_BAD_REQUEST)
+
+        self._process_syllabus(syllabus_file, course)
+
+        return Response({
+            'status': 'Syllabus uploaded and processed successfully',
+            'course': CourseSerializer(course).data
+        }, status=status.HTTP_200_OK)
+
+    def _process_syllabus(self, syllabus_file, course):
+        syllabus_text = parse_file_text(syllabus_file)
+        syllabus = Syllabus.objects.create(
+            file=syllabus_file,
+            full_text=syllabus_text
+        )
+        course.syllabus = syllabus
+        course.save()
+
+        parsed_syllabus_data = process_syllabus(syllabus_text)
+
+        # Update course details if available
+        if 'course_title' in parsed_syllabus_data:
+            course.title = parsed_syllabus_data['course_title']
+        if 'course_description' in parsed_syllabus_data:
+            course.description = parsed_syllabus_data['course_description']
+        course.save()
+
+        # Create assignments
+        assignments_data = parsed_syllabus_data.get('assignments', [])
+        for data in assignments_data:
+            Assignment.objects.create(
+                course=course,
+                title=data['title'],
+                description=data['description']
+            )
+
+    @action(detail=True, methods=['GET'])
+    def assignments(self, request, pk=None):
+        course = self.get_object()
+        assignments = course.assignments.all()
+        serializer = AssignmentSerializer(assignments, many=True)
+        return Response(serializer.data)
 
 class GradeViewSet(BaseKnowledgeItemViewSet):
     queryset = Grade.objects.all()
     serializer_class = GradeSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
     @action(detail=True, methods=['POST'])
     def override(self, request, pk=None):
@@ -163,6 +239,7 @@ class GradeViewSet(BaseKnowledgeItemViewSet):
 class CritiqueViewSet(BaseKnowledgeItemViewSet):
     queryset = Critique.objects.all()
     serializer_class = CritiqueSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
     # def update(self, request, *args, **kwargs):
     #     partial = kwargs.pop('partial', False)
@@ -213,17 +290,26 @@ class CritiqueViewSet(BaseKnowledgeItemViewSet):
 class AssignmentViewSet(viewsets.ModelViewSet):
     queryset = Assignment.objects.all().order_by('-created_at')
     serializer_class = AssignmentSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
         logger.info(f"Received data for new assignment: {request.data}")
         try:
+            course_id = request.data.get('course')
+            if not course_id:
+                return Response({"error": "Course ID is required"}, status=status.HTTP_400_BAD_REQUEST)
+
+            try:
+                course = Course.objects.get(id=course_id)
+            except Course.DoesNotExist:
+                return Response({"error": "Invalid course ID"}, status=status.HTTP_400_BAD_REQUEST)
+
             serializer = self.get_serializer(data=request.data)
             if serializer.is_valid():
                 logger.info("Serializer is valid")
-                self.perform_create(serializer)
-                headers = self.get_success_headers(serializer.data)
-
-                assignment = serializer.instance
+                # Explicitly set the course before saving
+                serializer.validated_data['course'] = course
+                assignment = serializer.save()
                 logger.info(f"Assignment created with ID: {assignment.id}")
 
                 rubric_pipeline = RubricGenerationPipeline(
@@ -232,12 +318,14 @@ class AssignmentViewSet(viewsets.ModelViewSet):
                 )
                 result = rubric_pipeline.run()
 
+                # Update the assignment with the generated rubric
+                assignment.rubric = result['rubric']
+                assignment.save()
+
                 serializer_data = serializer.data
                 serializer_data['rubric'] = result['rubric']
 
-                # # Initialize SCORM data for the assignment
-                # SCORMData.objects.create(assignment=assignment)
-
+                headers = self.get_success_headers(serializer_data)
                 return Response(serializer_data, status=status.HTTP_201_CREATED, headers=headers)
             else:
                 logger.error(f"Serializer errors: {serializer.errors}")
@@ -251,9 +339,8 @@ class AssignmentViewSet(viewsets.ModelViewSet):
         instance.last_viewed = timezone.now()
         instance.save()
         serializer = self.get_serializer(instance)
-        scorm_data = SCORMData.objects.get(assignment=instance)
         response_data = serializer.data
-        response_data['scorm_data'] = SCORMDataSerializer(scorm_data).data
+
         return Response(response_data)
 
     def update(self, request, *args, **kwargs):
@@ -264,8 +351,8 @@ class AssignmentViewSet(viewsets.ModelViewSet):
         self.perform_update(serializer)
 
         # Update SCORM data if necessary
-        scorm_data = SCORMData.objects.get(assignment=instance)
         if 'scorm_data' in request.data:
+            scorm_data, created = SCORMData.objects.get_or_create(assignment=instance)
             scorm_serializer = SCORMDataSerializer(scorm_data, data=request.data['scorm_data'], partial=True)
             if scorm_serializer.is_valid():
                 scorm_serializer.save()
@@ -276,26 +363,28 @@ class AssignmentViewSet(viewsets.ModelViewSet):
     def status(self, request, pk=None):
         assignment = self.get_object()
         is_complete = assignment.rubric is not None
-        scorm_data = SCORMData.objects.get(assignment=assignment)
+        scorm_status = 'not_started'
+        try:
+            scorm_data = SCORMData.objects.get(assignment=assignment)
+            scorm_status = scorm_data.cmi_core_lesson_status
+        except SCORMData.DoesNotExist:
+            pass
         return Response({
             'status': 'complete' if is_complete else 'in_progress',
-            'scorm_status': scorm_data.cmi_core_lesson_status
+            'scorm_status': scorm_status
         })
 
     @action(detail=True, methods=['POST'])
     def approve_rubric(self, request, pk=None):
         assignment = self.get_object()
-        rubric = Rubric.objects.get(assignment_id=assignment.id, human_approved=False)
-        if rubric:
+        try:
+            rubric = Rubric.objects.get(assignment_id=assignment.id, human_approved=False)
             rubric.human_approved = True
             rubric.approved_at = timezone.now()
             rubric.save()
-            # Update SCORM data
-            # scorm_data = SCORMData.objects.get(assignment=assignment)
-            # scorm_data.cmi_core_lesson_status = 'completed'
-            # scorm_data.save()
             return Response({"status": "rubric approved"})
-        return Response({"status": "no unapproved rubric found"}, status=status.HTTP_400_BAD_REQUEST)
+        except Rubric.DoesNotExist:
+            return Response({"status": "no unapproved rubric found"}, status=status.HTTP_400_BAD_REQUEST)
 
     @action(detail=True, methods=['POST'])
     def generate_rubric(self, request, pk=None):
@@ -305,10 +394,6 @@ class AssignmentViewSet(viewsets.ModelViewSet):
             openai_api_key=os.environ.get("OPENAI_API_KEY")
         )
         result = rubric_pipeline.run()
-        # Update SCORM data
-        # scorm_data = SCORMData.objects.get(assignment=assignment)
-        # scorm_data.cmi_core_lesson_status = 'incomplete'
-        # scorm_data.save()
         return Response({"rubric": result['rubric'], "similar_rubrics": result['similar_rubrics']})
 
     @action(detail=True, methods=['GET'])
@@ -321,6 +406,75 @@ class AssignmentViewSet(viewsets.ModelViewSet):
             'average_score': scorm_data_list.aggregate(Avg('cmi_core_score_raw'))['cmi_core_score_raw__avg']
         }
         return Response(summary)
+
+    @action(detail=True, methods=['GET'])
+    def generate_scorm(self, request, pk=None):
+        assignment = self.get_object()
+
+        with tempfile.TemporaryDirectory() as tmpdirname:
+            scorm_dir = os.path.join(tmpdirname, 'scorm-package')
+
+            # Copy build files to SCORM package directory
+            shutil.copytree(settings.REACT_BUILD_DIR, scorm_dir)
+
+            # Copy SCORM-specific files
+            public_scorm_dir = os.path.join(settings.BASE_DIR, 'scorm')
+            for item in os.listdir(public_scorm_dir):
+                s = os.path.join(public_scorm_dir, item)
+                d = os.path.join(scorm_dir, item)
+                if os.path.isdir(s):
+                    shutil.copytree(s, d, False, None)
+                else:
+                    shutil.copy2(s, d)
+
+            # Ensure scormApiWrapper.js is in the correct location
+            shutil.copy2(os.path.join(public_scorm_dir, 'scormApiWrapper.js'),
+                         os.path.join(scorm_dir, 'scormApiWrapper.js'))
+
+            # Update index.html to use relative paths
+            index_html_path = os.path.join(scorm_dir, 'index.html')
+            with open(index_html_path, 'r+') as f:
+                content = f.read()
+                content = content.replace('src="/', 'src="')
+                content = content.replace('href="/', 'href="')
+                f.seek(0)
+                f.write(content)
+                f.truncate()
+
+            # Add assignment-specific data
+            self.add_assignment_data(scorm_dir, assignment)
+
+            # Create zip file
+            zip_path = os.path.join(tmpdirname, f'scorm-package-{assignment.id}.zip')
+            with zipfile.ZipFile(zip_path, 'w') as zipf:
+                for root, dirs, files in os.walk(scorm_dir):
+                    for file in files:
+                        zipf.write(os.path.join(root, file),
+                                   os.path.relpath(os.path.join(root, file), scorm_dir))
+
+            # Return the zip file
+            return FileResponse(open(zip_path, 'rb'), as_attachment=True, filename=f'scorm-package-{assignment.id}.zip')
+
+    def add_assignment_data(self, scorm_dir, assignment):
+        # Create a JSON file with assignment data
+        assignment_data = {
+            'id': assignment.id,
+            'title': assignment.title,
+            'description': assignment.description,
+            # Add other relevant assignment data here
+        }
+        with open(os.path.join(scorm_dir, 'assignment-data.json'), 'w') as f:
+            json.dump(assignment_data, f)
+
+        # Update index.html to load assignment data
+        index_html_path = os.path.join(scorm_dir, 'index.html')
+        with open(index_html_path, 'r+') as f:
+            content = f.read()
+            script_tag = f'<script>window.ASSIGNMENT_DATA = {json.dumps(assignment_data)};</script>'
+            content = content.replace('</head>', f'{script_tag}\n</head>')
+            f.seek(0)
+            f.write(content)
+            f.truncate()
 
 
 class GradingPipelineSingleton:
@@ -341,6 +495,7 @@ class GradingPipelineSingleton:
     def reset_instance(cls):
         cls._instance = None
 
+
 def grade_submission(submission):
     assignment = submission.assignment
     rubric = Rubric.objects.filter(assignment_id=assignment.id).first()
@@ -358,6 +513,7 @@ class SubmissionViewSet(viewsets.ModelViewSet):
     serializer_class = SubmissionSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['assignment']
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self, pk=None):
         queryset = super().get_queryset()
@@ -652,3 +808,6 @@ class SubmissionViewSet(viewsets.ModelViewSet):
         scorm_data.save()
 
         return Response({'status': 'Session ended'})
+
+
+

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import api from "../../../regai-frontend/src/components/utils/api";
+
 
 function GradingPipeline() {
   const { submissionId } = useParams();
@@ -13,14 +14,14 @@ function GradingPipeline() {
   }, [submissionId]);
 
   const fetchSubmission = () => {
-    axios.get(`/api/submissions/${submissionId}/`)
+    api.get(`/submissions/${submissionId}/`)
       .then(response => setSubmission(response.data))
       .catch(error => console.error('Error fetching submission:', error));
   };
 
   const startGrading = () => {
     setGradingStage('inProgress');
-    axios.post(`/api/submissions/${submissionId}/grade_submission/`)
+    api.post(`/submissions/${submissionId}/grade_submission/`)
       .then(response => {
         setFeedback(response.data.feedback);
         setGradingStage('completed');

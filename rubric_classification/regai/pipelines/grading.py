@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import json
 import logging
 import os
@@ -929,5 +928,4 @@ class GradingPipeline:
     #         for component in pipeline.components.values():
     #             if len(component.chat_history) > 0:
     #                 component.chat_history.clear()
-=======
->>>>>>> parent of fc22ff7 (for marsh)
+

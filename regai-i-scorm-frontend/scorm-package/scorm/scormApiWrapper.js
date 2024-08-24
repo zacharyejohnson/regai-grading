@@ -1,3 +1,6 @@
+// Add this line at the end of the file
+import apiEndpoints from '../../src/apiService';
+
 var API = null;
 
 (function() {
@@ -28,16 +31,33 @@ var API = null;
     };
 
     var ScormAPI = {
-        initialize: function() {
+        initialize: async function() {
             API = getAPI();
             if (API) {
-                return API.LMSInitialize("");
+                const result = API.LMSInitialize("");
+                if (result === "true") {
+                    try {
+                        await apiEndpoints.scormAssignment.getScormData();
+                    } catch (error) {
+                        console.error("Error initializing SCORM data:", error);
+                    }
+                }
+                return result === "true";
             }
             return false;
         },
-        terminate: function() {
+        terminate: async function() {
             if (API) {
-                return API.LMSFinish("");
+                try {
+                    await apiEndpoints.scormAssignment.updateScormData({
+                        cmi_core_lesson_status: API.LMSGetValue("cmi.core.lesson_status"),
+                        cmi_core_score_raw: API.LMSGetValue("cmi.core.score.raw"),
+                        cmi_core_session_time: API.LMSGetValue("cmi.core.session_time"),
+                    });
+                } catch (error) {
+                    console.error("Error updating SCORM data:", error);
+                }
+                return API.LMSFinish("") === "true";
             }
             return false;
         },
@@ -47,15 +67,37 @@ var API = null;
             }
             return "";
         },
-        setValue: function(element, value) {
+        setValue: async function(element, value) {
             if (API) {
-                return API.LMSSetValue(element, value);
+                const result = API.LMSSetValue(element, value);
+                if (result === "true") {
+                    try {
+                        await apiEndpoints.scormAssignment.updateScormData({
+                            [element]: value
+                        });
+                    } catch (error) {
+                        console.error("Error updating SCORM data:", error);
+                    }
+                }
+                return result === "true";
             }
             return false;
         },
-        commit: function() {
+        commit: async function() {
             if (API) {
-                return API.LMSCommit("");
+                const result = API.LMSCommit("");
+                if (result === "true") {
+                    try {
+                        await apiEndpoints.scormAssignment.updateScormData({
+                            cmi_core_lesson_status: API.LMSGetValue("cmi.core.lesson_status"),
+                            cmi_core_score_raw: API.LMSGetValue("cmi.core.score.raw"),
+                            cmi_core_session_time: API.LMSGetValue("cmi.core.session_time"),
+                        });
+                    } catch (error) {
+                        console.error("Error updating SCORM data:", error);
+                    }
+                }
+                return result === "true";
             }
             return false;
         },
@@ -80,5 +122,4 @@ var API = null;
     };
 
     window.ScormAPI = ScormAPI;
-    window.getAPI = getAPI;  // Expose getAPI to global scope
 })();

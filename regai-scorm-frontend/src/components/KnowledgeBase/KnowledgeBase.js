@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { API_BASE_URL } from '../utils/api';
+import api from '../utils/api';
 import LoadingSpinner from '../LoadingSpinner';
 import Button from '../Common/Button';
 import KnowledgeBaseItem from './KnowledgeBaseItem';
@@ -29,7 +28,7 @@ function KnowledgeBase() {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await axios.get(`${API_BASE_URL}/assignments/`);
+      const response = await api.get(`/assignments/`);
       setAssignments(response.data);
       if (response.data.length > 0) {
         setSelectedAssignment(response.data[0]);
@@ -46,7 +45,7 @@ function KnowledgeBase() {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await axios.get(`${API_BASE_URL}/knowledge_base/${assignmentId}/`);
+      const response = await api.get(`/knowledge_base/${assignmentId}/`);
       console.log("Knowledge base items: ", response)
       setKnowledgeItems(response.data);
     } catch (error) {
@@ -62,7 +61,7 @@ function KnowledgeBase() {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await axios.get(`${API_BASE_URL}/knowledge-base/search/?query=${searchQuery}`);
+      const response = await api.get(`/knowledge-base/search/?query=${searchQuery}`);
       setKnowledgeItems(response.data);
     } catch (error) {
       console.error('Error searching knowledge base:', error);
@@ -74,7 +73,7 @@ function KnowledgeBase() {
 
   const handleAddItem = async (newItem) => {
     try {
-      const response = await axios.post(`${API_BASE_URL}/knowledge-base/`, {
+      const response = await api.post(`/knowledge-base/`, {
         ...newItem,
         assignment: selectedAssignment.id,
       });
@@ -88,7 +87,7 @@ function KnowledgeBase() {
 
   const handleUpdateItem = async (updatedItem) => {
     try {
-      const response = await axios.put(`${API_BASE_URL}/knowledge-base/${updatedItem.id}/`, updatedItem);
+      const response = await api.put(`/knowledge-base/${updatedItem.id}/`, updatedItem);
       setKnowledgeItems(knowledgeItems.map(item => item.id === updatedItem.id ? response.data : item));
     } catch (error) {
       console.error('Error updating knowledge base item:', error);
@@ -98,7 +97,7 @@ function KnowledgeBase() {
 
   const handleDeleteItem = async (itemId) => {
     try {
-      await axios.delete(`${API_BASE_URL}/knowledge-base/${itemId}/`);
+      await api.delete(`/knowledge-base/${itemId}/`);
       setKnowledgeItems(knowledgeItems.filter(item => item.id !== itemId));
     } catch (error) {
       console.error('Error deleting knowledge base item:', error);

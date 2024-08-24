@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import axios from 'axios';
+import api from "../../../regai-frontend/src/components/utils/api";
 
 function AssignmentView() {
   const { id } = useParams();
@@ -13,13 +13,13 @@ function AssignmentView() {
   }, [id]);
 
   const fetchAssignment = () => {
-    axios.get(`/api/assignments/${id}/`)
+    api.get(`/assignments/${id}/`)
       .then(response => setAssignment(response.data))
       .catch(error => console.error('Error fetching assignment:', error));
   };
 
   const fetchSubmissions = () => {
-    axios.get(`/api/assignments/${id}/submissions/`)
+    api.get(`/assignments/${id}/submissions/`)
       .then(response => setSubmissions(response.data))
       .catch(error => console.error('Error fetching submissions:', error));
   };
@@ -27,7 +27,7 @@ function AssignmentView() {
   const handleFileUpload = (event) => {
     const formData = new FormData();
     formData.append('file', event.target.files[0]);
-    axios.post(`/api/assignments/${id}/upload_submissions/`, formData, {
+    api.post(`/assignments/${id}/upload_submissions/`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }

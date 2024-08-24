@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from "../../../regai-frontend/src/components/utils/api";
 
 function KnowledgeBase() {
   const [knowledgeBaseItems, setKnowledgeBaseItems] = useState([]);
@@ -11,14 +11,14 @@ function KnowledgeBase() {
   }, []);
 
   const fetchKnowledgeBaseItems = () => {
-    axios.get('/api/knowledge-base/')
+    api.get('/knowledge-base/')
       .then(response => setKnowledgeBaseItems(response.data))
       .catch(error => console.error('Error fetching knowledge base items:', error));
   };
 
   const handleSearch = (e) => {
     e.preventDefault();
-    axios.get(`/api/knowledge-base/search/?query=${searchQuery}`)
+    api.get(`/knowledge-base/search/?query=${searchQuery}`)
       .then(response => setKnowledgeBaseItems(response.data))
       .catch(error => console.error('Error searching knowledge base:', error));
   };

@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDropzone } from 'react-dropzone';
-import axios from 'axios';
-import api, { API_BASE_URL } from '../utils/api';
+import api from '../utils/api';
 import RubricDisplay from '../Rubric/RubricDisplay';
 import RubricEditModal from '../Rubric/RubricEditModal';
 import SubmissionTable from './SubmissionTable';
@@ -13,7 +12,7 @@ import { motion } from 'framer-motion';
 import truncateText from "../utils/truncateText";
 
 function AssignmentView() {
-  const { id } = useParams();
+  const { courseId, assignmentId } = useParams();
   const [assignment, setAssignment] = useState(null);
   const [rubric, setRubric] = useState(null);
   const [rubricId, setRubricId] = useState(null);
@@ -27,7 +26,7 @@ function AssignmentView() {
   fetchAssignment();
   fetchRubric();
   fetchSubmissions();
-}, [id]);
+}, [assignmentId]);
 
   const handleRubricUpdate = async (updatedRubric) => {
   console.log("Updating rubric in AssignmentView:", updatedRubric);
@@ -47,7 +46,7 @@ function AssignmentView() {
 
   const fetchAssignment = async () => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/assignments/${id}/`);
+      const response = await api.get(`/assignments/${assignmentId}/`);
       setAssignment(response.data);
       console.log(assignment);
     } catch (error) {
@@ -58,7 +57,7 @@ function AssignmentView() {
 
   const fetchRubric = async () => {
     try {
-      const rubricResponse = await axios.get(`${API_BASE_URL}/rubrics/?assignment=${id}`);
+      const rubricResponse = await api.get(`/rubrics/?assignment=${assignmentId}`);
       const fetchedRubric = rubricResponse.data.results[0];
       setRubric(fetchedRubric);
       setRubricId(fetchedRubric.id);  // Store the rubric ID
@@ -73,20 +72,20 @@ const handleApproveRubric = useCallback(async () => {
     if (!rubric || isRubricApproved) return;
 
     try {
-      await axios.post(`${API_BASE_URL}/assignments/${id}/approve_rubric/`);
+      await api.post(`/assignments/${assignmentId}/approve_rubric/`);
       setIsRubricApproved(true);
       toast.success('Rubric approved successfully');
     } catch (error) {
       console.error('Error approving rubric:', error);
       toast.error('Error approving rubric');
     }
-  }, [id, rubric, isRubricApproved]);
+  }, [assignmentId, rubric, isRubricApproved]);
 
 
 const fetchSubmissions = async () => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/submissions/`, {
-      params: { assignment: id }
+    const response = await api.get(`/submissions/`, {
+      params: { assignment: assignmentId }
     });
     if (Array.isArray(response.data)) {
       setSubmissions(response.data);
@@ -105,7 +104,7 @@ const fetchSubmissions = async () => {
 
   const handleDeleteSubmission = async (submissionId) => {
     try {
-      await axios.delete(`${API_BASE_URL}/submissions/${submissionId}/`);
+      await api.delete(`/submissions/${submissionId}/`);
       fetchSubmissions();
       toast.success('Submission deleted successfully');
     } catch (error) {
@@ -115,9 +114,9 @@ const fetchSubmissions = async () => {
   };
 
   const handleFileUpload = async (formData) => {
-  formData.append('assignment', id);  // Ensure this is the current assignment ID
+  formData.append('assignment', assignmentId);  // Ensure this is the current assignment ID
   try {
-    await axios.post(`${API_BASE_URL}/submissions/`, formData, {
+    await api.post(`/submissions/`, formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
     });
     fetchSubmissions();  // This will now fetch only submissions for the current assignment
@@ -130,21 +129,21 @@ const fetchSubmissions = async () => {
 
   const onDrop = useCallback((acceptedFiles) => {
   const formData = new FormData();
-  formData.append('assignment', id);
+  formData.append('assignment', assignmentId);
   acceptedFiles.forEach(file => {
     formData.append('file', file);
   });
   handleFileUpload(formData);
-}, [id]);
+}, [assignmentId]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
 
   const handleTextSubmission = async () => {
   try {
-    await axios.post(`${API_BASE_URL}/submissions/submit_text/`, {
+    await api.post(`/submissions/submit_text/`, {
       content: textSubmission,
-      assignment: id,
+      assignment: assignmentId,
       student_name: "Anonymous"
     });
     setShowTextSubmissionModal(false);
@@ -160,7 +159,7 @@ const fetchSubmissions = async () => {
 
   const handleStartGrading = async (submissionId) => {
   try {
-    await axios.post(`${API_BASE_URL}/submissions/${submissionId}/grade/`);
+    await api.post(`/submissions/${submissionId}/grade/`);
     fetchSubmissions();
     toast.success('Grading completed');
   } catch (error) {

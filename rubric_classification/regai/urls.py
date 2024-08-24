@@ -1,8 +1,10 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-<<<<<<< HEAD
+
+from .views.auth_views import RegistrationView, LoginView, CustomTokenRefreshView, LogoutView
 from .views.regai_views import AssignmentViewSet, SubmissionViewSet, RubricViewSet, GradeViewSet, \
-    CritiqueViewSet
+    CritiqueViewSet, CourseViewSet
+from .views.scorm_views import SCORMAssignmentViewSet
 
 router = DefaultRouter()
 router.register(r'rubrics', RubricViewSet)
@@ -10,15 +12,13 @@ router.register(r'grades', GradeViewSet)
 router.register(r'critiques', CritiqueViewSet)
 router.register(r'assignments', AssignmentViewSet)
 router.register(r'submissions', SubmissionViewSet)
-=======
-from .views import AssignmentViewSet, regai_interface, assignment_view
-
-router = DefaultRouter()
-router.register(r'assignments', AssignmentViewSet, basename='assignment')
->>>>>>> parent of fc22ff7 (for marsh)
+router.register(r'courses', CourseViewSet, basename='courses')
+router.register(r'scorm/assignments', SCORMAssignmentViewSet, basename='scorm-assignments')
 
 urlpatterns = [
-    path('home/', regai_interface, name='regai_interface'),
-    path('api/', include(router.urls)),
-    path('assignment/<int:assignment_id>/', assignment_view, name='assignment_view'),
+    path('', include(router.urls)),
+    path('auth/register/', RegistrationView.as_view(), name='register'),
+    path('auth/login/', LoginView.as_view(), name='login'),
+    path('auth/refresh/', CustomTokenRefreshView.as_view(), name='token_refresh'),
+    path('auth/logout/', LogoutView.as_view(), name='logout'),
 ]

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import axios from 'axios';
+import api from "../../../regai-frontend/src/components/utils/api";
 
 function SubmissionList() {
   const { assignmentId } = useParams();
@@ -13,13 +13,13 @@ function SubmissionList() {
   }, [assignmentId]);
 
   const fetchAssignment = () => {
-    axios.get(`/api/assignments/${assignmentId}/`)
+    api.get(`/assignments/${assignmentId}/`)
       .then(response => setAssignment(response.data))
       .catch(error => console.error('Error fetching assignment:', error));
   };
 
   const fetchSubmissions = () => {
-    axios.get(`/api/assignments/${assignmentId}/submissions/`)
+    api.get(`/assignments/${assignmentId}/submissions/`)
       .then(response => setSubmissions(response.data))
       .catch(error => console.error('Error fetching submissions:', error));
   };

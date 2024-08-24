@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import api from "../../../regai-frontend/src/components/utils/api";
 
 function Dashboard() {
   const [assignments, setAssignments] = useState([]);
@@ -12,14 +12,14 @@ function Dashboard() {
   }, []);
 
   const fetchAssignments = () => {
-    axios.get('/api/assignments/')
+    api.get('/assignments/')
       .then(response => setAssignments(response.data))
       .catch(error => console.error('Error fetching assignments:', error));
   };
 
   const handleCreateAssignment = (e) => {
     e.preventDefault();
-    axios.post('/api/assignments/create_assignment/', newAssignment)
+    api.post('/assignments/create_assignment/', newAssignment)
       .then(response => {
         setAssignments([...assignments, response.data]);
         setShowCreateModal(false);
@@ -30,7 +30,7 @@ function Dashboard() {
 
   const handleDeleteAssignment = (id) => {
     if (window.confirm('Are you sure you want to delete this assignment?')) {
-      axios.delete(`/api/assignments/${id}/`)
+      api.delete(`/assignments/${id}/`)
         .then(() => {
           setAssignments(assignments.filter(a => a.id !== id));
         })

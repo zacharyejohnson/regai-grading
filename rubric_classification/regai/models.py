@@ -1,15 +1,18 @@
 from datetime import timedelta
 
+from django.contrib.auth import get_user_model
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
-<<<<<<< HEAD
 import json
-from django.contrib.auth.models import User
 from django.utils import timezone
+
+
+User = get_user_model()
 
 class BaseKnowledgeItem(models.Model):
     assignment = models.ForeignKey('Assignment', on_delete=models.CASCADE, related_name='%(class)s_items')
-    submission = models.ForeignKey('Submission', on_delete=models.CASCADE, related_name='%(class)s_items', null=True, blank=True)
+    submission = models.ForeignKey('Submission', on_delete=models.CASCADE, related_name='%(class)s_items', null=True,
+                                   blank=True)
     content = models.JSONField()
     human_approved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -20,7 +23,6 @@ class BaseKnowledgeItem(models.Model):
         abstract = True
 
 
-
 class Grade(BaseKnowledgeItem):
     TYPE_CHOICES = (
         ('initial', 'Initial'),
@@ -28,6 +30,7 @@ class Grade(BaseKnowledgeItem):
         ('final', 'Final'),
     )
     type = models.CharField(max_length=10, choices=TYPE_CHOICES)
+
 
 # In models.py
 
@@ -38,25 +41,39 @@ class Critique(BaseKnowledgeItem):
         ('MINOR_REVISION', 'Minor Revision'),
         ('MAJOR_REVISION', 'Major Revision'),
     ], default='PASS')
-=======
->>>>>>> parent of fc22ff7 (for marsh)
 
-class Assignment(models.Model):
+
+class Syllabus(models.Model):
+    file = models.FileField(upload_to='syllabi/')
+    full_text = models.TextField()
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+
+class Course(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
-<<<<<<< HEAD
-    rubric = models.JSONField(null=True, blank=True)
+    instructor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='courses')
     created_at = models.DateTimeField(auto_now_add=True)
-    last_viewed = models.DateTimeField(default=timezone.now)
-=======
-    rubric = models.JSONField(blank=True, default=dict)
-    description_file = models.FileField(upload_to='assignment_descriptions/', null=True, blank=True)
->>>>>>> parent of fc22ff7 (for marsh)
+    updated_at = models.DateTimeField(auto_now=True)
+    syllabus = models.ForeignKey(Syllabus, null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.title
 
-<<<<<<< HEAD
+
+class Assignment(models.Model):
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='assignments')
+    title = models.CharField(max_length=255)
+    description = models.TextField(blank=True, null=True)
+    rubric = models.JSONField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    last_viewed = models.DateTimeField(default=timezone.now)
+    description_file = models.FileField(upload_to='assignment_descriptions/', null=True, blank=True)
+
+    def __str__(self):
+        return self.title
+
+
 class Rubric(models.Model):
     assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE, related_name='rubrics')
     content = models.JSONField()
@@ -160,15 +177,4 @@ class SCORMData(models.Model):
         verbose_name_plural = "SCORM Data"
 
     def __str__(self):
-        return f"SCORM Data for Submission {self.submission_id}"
-=======
-class Submission(models.Model):
-    assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE, related_name='submissions')
-    student_name = models.CharField(max_length=255, null=True, blank=True)
-    file = models.FileField(upload_to='submissions/')
-    submitted_at = models.DateTimeField(auto_now_add=True)
-    grade = models.FloatField(null=True, blank=True)
-    category_scores = models.JSONField(blank=True, default=dict)
-    overall_justification = models.JSONField(blank=True, default=dict)
-    feedback = models.JSONField(blank=True, default=dict)
->>>>>>> parent of fc22ff7 (for marsh)
+        return f"SCORM Data for Submission {self.submission.id}"
