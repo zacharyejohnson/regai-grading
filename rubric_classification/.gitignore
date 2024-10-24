@@ -16,6 +16,9 @@ media
 /.venv
 venv
 
+
+../Meta-Llama-3.1-70B-Instruct-Q8_0
+
 # If you are using PyCharm #
 # User-specific stuff
 .idea/**/workspace.xml
