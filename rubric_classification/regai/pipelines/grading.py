@@ -118,7 +118,6 @@ class GradingPipeline:
         print(self.submission_retriever.__dict__)
 
         # Get the distribution of grade types
-        from django.db.models import Count
         grade_type_distribution = Grade.objects.values('type').annotate(count=Count('id'))
         print(grade_type_distribution)
 

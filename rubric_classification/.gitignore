@@ -9,6 +9,13 @@ media
 # Backup files #
 *.bak
 
+.env
+/regai/.env
+.env.*
+.venv
+/.venv
+venv
+
 # If you are using PyCharm #
 # User-specific stuff
 .idea/**/workspace.xml

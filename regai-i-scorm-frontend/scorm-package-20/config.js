@@ -1,1 +1,0 @@
-window.ASSIGNMENT_ID = "20";
