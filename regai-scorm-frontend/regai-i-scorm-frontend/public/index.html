@@ -2,22 +2,34 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="icon" href="%PUBLIC_URL%/logo-no-background.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-    <meta
-        name="description"
-        content="SCORM-compliant React application for assignment submissions"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <meta name="description" content="REGAI Assignment Submission Portal" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo-no-background.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <title>Assignment Submission Portal</title>
+    <script>
+        console.log('Page loading started');
+        window.onerror = function(msg, url, lineNo, columnNo, error) {
+            console.error('Global error:', { msg, url, lineNo, columnNo, error });
+            return false;
+        };
+    </script>
     <script src="%PUBLIC_URL%/scorm/scormApiWrapper.js"></script>
-<!--    &lt;!&ndash; Include Tailwind CSS &ndash;&gt;-->
-<!--    <script src="https://cdn.tailwindcss.com"></script>-->
 </head>
 <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM fully loaded');
+            if (window.ScormAPI) {
+                console.log('SCORM API found in window');
+            } else {
+                console.error('SCORM API not found in window');
+            }
+        });
+    </script>
 </body>
 </html>
